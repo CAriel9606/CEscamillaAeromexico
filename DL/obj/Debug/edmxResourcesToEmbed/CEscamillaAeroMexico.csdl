@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CEscamillaAeroMexicoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Pasajero">
+    <Key>
+      <PropertyRef Name="IdPasajero" />
+    </Key>
+    <Property Name="IdPasajero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Reservacions" Relationship="CEscamillaAeroMexicoModel.FK__Reservaci__IdPas__24927208" FromRole="Pasajero" ToRole="Reservacion" />
+  </EntityType>
+  <EntityContainer Name="CEscamillaAeroMexicoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Pasajeroes" EntityType="Self.Pasajero" />
+    <FunctionImport Name="PasajeroAdd">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+      <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Reservacions" EntityType="CEscamillaAeroMexicoModel.Reservacion" />
+    <AssociationSet Name="FK__Reservaci__IdPas__24927208" Association="CEscamillaAeroMexicoModel.FK__Reservaci__IdPas__24927208">
+      <End Role="Pasajero" EntitySet="Pasajeroes" />
+      <End Role="Reservacion" EntitySet="Reservacions" />
+    </AssociationSet>
+    <FunctionImport Name="ReservacionAdd">
+      <Parameter Name="NumeroVuelo" Mode="In" Type="String" />
+      <Parameter Name="IdPasajero" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Tipoes" EntityType="CEscamillaAeroMexicoModel.Tipo" />
+    <EntitySet Name="Usuarios" EntityType="CEscamillaAeroMexicoModel.Usuario" />
+    <EntitySet Name="Vueloes" EntityType="CEscamillaAeroMexicoModel.Vuelo" />
+    <AssociationSet Name="FK__Reservaci__IdPas__239E4DCF" Association="CEscamillaAeroMexicoModel.FK__Reservaci__IdPas__239E4DCF">
+      <End Role="Vuelo" EntitySet="Vueloes" />
+      <End Role="Reservacion" EntitySet="Reservacions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Usuario__IdTipo__38996AB5" Association="CEscamillaAeroMexicoModel.FK__Usuario__IdTipo__38996AB5">
+      <End Role="Tipo" EntitySet="Tipoes" />
+      <End Role="Usuario" EntitySet="Usuarios" />
+    </AssociationSet>
+    <FunctionImport Name="GetAllVuelos" ReturnType="Collection(CEscamillaAeroMexicoModel.GetAllVuelos_Result)" />
+    <FunctionImport Name="GetByUserName" ReturnType="Collection(CEscamillaAeroMexicoModel.GetByUserName_Result)">
+      <Parameter Name="UserName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetVuelos" ReturnType="Collection(CEscamillaAeroMexicoModel.GetVuelos_Result)">
+      <Parameter Name="FechaInicio" Mode="In" Type="String" />
+      <Parameter Name="FechaFin" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="Reservacion">
+    <Key>
+      <PropertyRef Name="IdReservacion" />
+    </Key>
+    <Property Name="IdReservacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NumeroVuelo" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="IdPasajero" Type="Int32" />
+    <NavigationProperty Name="Pasajero" Relationship="CEscamillaAeroMexicoModel.FK__Reservaci__IdPas__24927208" FromRole="Reservacion" ToRole="Pasajero" />
+    <NavigationProperty Name="Vuelo" Relationship="CEscamillaAeroMexicoModel.FK__Reservaci__IdPas__239E4DCF" FromRole="Reservacion" ToRole="Vuelo" />
+  </EntityType>
+  <Association Name="FK__Reservaci__IdPas__24927208">
+    <End Type="CEscamillaAeroMexicoModel.Pasajero" Role="Pasajero" Multiplicity="0..1" />
+    <End Type="CEscamillaAeroMexicoModel.Reservacion" Role="Reservacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pasajero">
+        <PropertyRef Name="IdPasajero" />
+      </Principal>
+      <Dependent Role="Reservacion">
+        <PropertyRef Name="IdPasajero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Tipo">
+    <Key>
+      <PropertyRef Name="IdTipo" />
+    </Key>
+    <Property Name="IdTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Tipo1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Usuarios" Relationship="CEscamillaAeroMexicoModel.FK__Usuario__IdTipo__38996AB5" FromRole="Tipo" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Correo" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="Contrasenia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IdTipo" Type="Int32" />
+    <NavigationProperty Name="Tipo" Relationship="CEscamillaAeroMexicoModel.FK__Usuario__IdTipo__38996AB5" FromRole="Usuario" ToRole="Tipo" />
+  </EntityType>
+  <EntityType Name="Vuelo">
+    <Key>
+      <PropertyRef Name="NumeroVuelo" />
+    </Key>
+    <Property Name="NumeroVuelo" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="Origen" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="Destino" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="FechaSalida" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Reservacions" Relationship="CEscamillaAeroMexicoModel.FK__Reservaci__IdPas__239E4DCF" FromRole="Vuelo" ToRole="Reservacion" />
+  </EntityType>
+  <Association Name="FK__Reservaci__IdPas__239E4DCF">
+    <End Type="CEscamillaAeroMexicoModel.Vuelo" Role="Vuelo" Multiplicity="0..1" />
+    <End Type="CEscamillaAeroMexicoModel.Reservacion" Role="Reservacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vuelo">
+        <PropertyRef Name="NumeroVuelo" />
+      </Principal>
+      <Dependent Role="Reservacion">
+        <PropertyRef Name="NumeroVuelo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Usuario__IdTipo__38996AB5">
+    <End Type="CEscamillaAeroMexicoModel.Tipo" Role="Tipo" Multiplicity="0..1" />
+    <End Type="CEscamillaAeroMexicoModel.Usuario" Role="Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tipo">
+        <PropertyRef Name="IdTipo" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="IdTipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="GetAllVuelos_Result">
+    <Property Type="String" Name="NumeroVuelo" Nullable="false" MaxLength="4" />
+    <Property Type="String" Name="Origen" Nullable="true" MaxLength="2" />
+    <Property Type="String" Name="Destino" Nullable="true" MaxLength="2" />
+    <Property Type="DateTime" Name="FechaSalida" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="GetByUserName_Result">
+    <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Correo" Nullable="true" MaxLength="254" />
+    <Property Type="String" Name="Contrasenia" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="IdTipo" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetVuelos_Result">
+    <Property Type="String" Name="NumeroVuelo" Nullable="false" MaxLength="4" />
+    <Property Type="String" Name="Origen" Nullable="true" MaxLength="2" />
+    <Property Type="String" Name="Destino" Nullable="true" MaxLength="2" />
+    <Property Type="DateTime" Name="FechaSalida" Nullable="true" Precision="23" />
+  </ComplexType>
+</Schema>

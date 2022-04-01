@@ -1,0 +1,6 @@
+namespace Pasajero.Areas.HelpPage.ModelDescriptions
+{
+    public class SimpleTypeModelDescription : ModelDescription
+    {
+    }
+}

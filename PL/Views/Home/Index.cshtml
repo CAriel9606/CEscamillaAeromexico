@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    
+    <img height="400" width="1000"  src="~/Content/aeromexico.jpg" />
+    
+</div>
+
+<div class="row">
+    
+    <div class="col-md-4">
+        <h2>Vuelos</h2>
+        <p>Te mostramos los vuelos activos en nuestra plataforma</p>
+        <p><a class="btn btn-primary" href="@Url.Action("GetAll", "Vuelo")">Vuelos &raquo;</a></p>
+        @*<div class="btn btn-primary">
+            @Html.ActionLink("Vuelos", "GetAll", "Vuelo")
+
+        </div>*@
+    </div>
+    <div class="col-md-4">
+        <h2>Pasajeros</h2>
+        <p>Aqui puedes ingresar los datos de nuevos pasajeros</p>
+        <p><a class="btn btn-primary" href="@Url.Action("Form", "Pasajero")">Pasajeros &raquo;</a></p>
+    </div>
+</div>

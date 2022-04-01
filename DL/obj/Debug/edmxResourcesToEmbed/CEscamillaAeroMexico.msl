@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CEscamillaAeroMexicoModelStoreContainer" CdmEntityContainer="CEscamillaAeroMexicoEntities">
+    <EntitySetMapping Name="Pasajeroes">
+      <EntityTypeMapping TypeName="CEscamillaAeroMexicoModel.Pasajero">
+        <MappingFragment StoreEntitySet="Pasajero">
+          <ScalarProperty Name="IdPasajero" ColumnName="IdPasajero" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+          <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="PasajeroAdd" FunctionName="CEscamillaAeroMexicoModel.Store.PasajeroAdd" />
+    <EntitySetMapping Name="Reservacions">
+      <EntityTypeMapping TypeName="CEscamillaAeroMexicoModel.Reservacion">
+        <MappingFragment StoreEntitySet="Reservacion">
+          <ScalarProperty Name="IdPasajero" ColumnName="IdPasajero" />
+          <ScalarProperty Name="NumeroVuelo" ColumnName="NumeroVuelo" />
+          <ScalarProperty Name="IdReservacion" ColumnName="IdReservacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ReservacionAdd" FunctionName="CEscamillaAeroMexicoModel.Store.ReservacionAdd" />
+    <EntitySetMapping Name="Tipoes">
+      <EntityTypeMapping TypeName="CEscamillaAeroMexicoModel.Tipo">
+        <MappingFragment StoreEntitySet="Tipo">
+          <ScalarProperty Name="Tipo1" ColumnName="Tipo" />
+          <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="CEscamillaAeroMexicoModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+          <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vueloes">
+      <EntityTypeMapping TypeName="CEscamillaAeroMexicoModel.Vuelo">
+        <MappingFragment StoreEntitySet="Vuelo">
+          <ScalarProperty Name="FechaSalida" ColumnName="FechaSalida" />
+          <ScalarProperty Name="Destino" ColumnName="Destino" />
+          <ScalarProperty Name="Origen" ColumnName="Origen" />
+          <ScalarProperty Name="NumeroVuelo" ColumnName="NumeroVuelo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetAllVuelos" FunctionName="CEscamillaAeroMexicoModel.Store.GetAllVuelos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CEscamillaAeroMexicoModel.GetAllVuelos_Result">
+          <ScalarProperty Name="NumeroVuelo" ColumnName="NumeroVuelo" />
+          <ScalarProperty Name="Origen" ColumnName="Origen" />
+          <ScalarProperty Name="Destino" ColumnName="Destino" />
+          <ScalarProperty Name="FechaSalida" ColumnName="FechaSalida" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetByUserName" FunctionName="CEscamillaAeroMexicoModel.Store.GetByUserName">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CEscamillaAeroMexicoModel.GetByUserName_Result">
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+          <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetVuelos" FunctionName="CEscamillaAeroMexicoModel.Store.GetVuelos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CEscamillaAeroMexicoModel.GetVuelos_Result">
+          <ScalarProperty Name="NumeroVuelo" ColumnName="NumeroVuelo" />
+          <ScalarProperty Name="Origen" ColumnName="Origen" />
+          <ScalarProperty Name="Destino" ColumnName="Destino" />
+          <ScalarProperty Name="FechaSalida" ColumnName="FechaSalida" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,107 @@
+﻿@model ML.Vuelo
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Vuelos</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Ingrese las fechas en las que desea ver los vuelos ingresados</h5>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("GetAll", "Vuelo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="row form-inline">
+                    <div class="col-md-4">
+                        <label class="text-justify">Fecha Inicio</label>
+                        <div class="input-group">
+                            
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-collapse-down"></i></span>
+                            @Html.TextBoxFor(model => model.FechaInicio, new { @class = "form-control fecha" })
+                            
+                        </div>
+                    </div>
+
+                    <div class="col-md-4"><label>Fecha Fin</label>
+                        <div class="input-group">
+                           
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-collapse-down"></i></span>
+                            @Html.TextBoxFor(model => model.FechaFin, new { @class = "form-control fecha" })
+                            
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <input type="submit" value="Buscar" class="btn btn-primary" />
+                    </div>
+            
+                </div>
+            }
+        </div>
+    </div>
+    
+    <br />
+    
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <th>Numero de Vuelo</th>
+                        <th>Origen</th>
+                        <th>Destino</th>
+                        <th>Fecha de Salida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.Vuelo vuelo in Model.Vuelos)
+                    {
+                        <tr>
+                            <td>@vuelo.NumeroVuelo</td>
+                            <td>@vuelo.Origen</td>
+                            <td>@vuelo.Destino</td>
+                            <td>@vuelo.FechaSalida</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>  
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
+<script src="~/Scripts/Datepicker/jquery.min.js" type="text/javascript"></script>
+<script src="~/Scripts/Datepicker/jquery-ui.min.js" type="text/javascript"></script>
+<link href="~/Content/jquery-ui.css" rel="Stylesheet" type="text/css" />
+
+<script type="text/javascript">
+    var j = jQuery.noConflict();
+
+    j(function () {
+        j(".fecha").datepicker({
+            dateFormat: 'mm/dd/yy',
+            //showOn: 'button',
+            //buttonImage: "../img/calendar.png",
+            buttonImageOnly: false,
+            changeMonth: true,
+            changeYear: true
+
+        });
+        $(".ui-datepicker-trigger").css("width", "30px");
+        $(".ui-datepicker-trigger").css("height", "30px");
+    });
+
+</script>

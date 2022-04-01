@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CEscamillaAeroMexicoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Pasajero">
+    <Key>
+      <PropertyRef Name="IdPasajero" />
+    </Key>
+    <Property Name="IdPasajero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" />
+    <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" />
+    <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Reservacion">
+    <Key>
+      <PropertyRef Name="IdReservacion" />
+    </Key>
+    <Property Name="IdReservacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NumeroVuelo" Type="varchar" MaxLength="4" />
+    <Property Name="IdPasajero" Type="int" />
+  </EntityType>
+  <EntityType Name="Tipo">
+    <Key>
+      <PropertyRef Name="IdTipo" />
+    </Key>
+    <Property Name="IdTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tipo" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="Correo" Type="varchar" MaxLength="254" />
+    <Property Name="Contrasenia" Type="varchar" MaxLength="50" />
+    <Property Name="IdTipo" Type="int" />
+  </EntityType>
+  <EntityType Name="Vuelo">
+    <Key>
+      <PropertyRef Name="NumeroVuelo" />
+    </Key>
+    <Property Name="NumeroVuelo" Type="varchar" MaxLength="4" Nullable="false" />
+    <Property Name="Origen" Type="varchar" MaxLength="2" />
+    <Property Name="Destino" Type="varchar" MaxLength="2" />
+    <Property Name="FechaSalida" Type="datetime" />
+  </EntityType>
+  <Association Name="FK__Reservaci__IdPas__239E4DCF">
+    <End Role="Vuelo" Type="Self.Vuelo" Multiplicity="0..1" />
+    <End Role="Reservacion" Type="Self.Reservacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vuelo">
+        <PropertyRef Name="NumeroVuelo" />
+      </Principal>
+      <Dependent Role="Reservacion">
+        <PropertyRef Name="NumeroVuelo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reservaci__IdPas__24927208">
+    <End Role="Pasajero" Type="Self.Pasajero" Multiplicity="0..1" />
+    <End Role="Reservacion" Type="Self.Reservacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pasajero">
+        <PropertyRef Name="IdPasajero" />
+      </Principal>
+      <Dependent Role="Reservacion">
+        <PropertyRef Name="IdPasajero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Usuario__IdTipo__38996AB5">
+    <End Role="Tipo" Type="Self.Tipo" Multiplicity="0..1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tipo">
+        <PropertyRef Name="IdTipo" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="IdTipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="GetAllVuelos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetByUserName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="GetVuelos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FechaInicio" Type="varchar" Mode="In" />
+    <Parameter Name="FechaFin" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="PasajeroAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
+    <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ReservacionAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NumeroVuelo" Type="varchar" Mode="In" />
+    <Parameter Name="IdPasajero" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="CEscamillaAeroMexicoModelStoreContainer">
+    <EntitySet Name="Pasajero" EntityType="Self.Pasajero" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reservacion" EntityType="Self.Reservacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tipo" EntityType="Self.Tipo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vuelo" EntityType="Self.Vuelo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Reservaci__IdPas__239E4DCF" Association="Self.FK__Reservaci__IdPas__239E4DCF">
+      <End Role="Vuelo" EntitySet="Vuelo" />
+      <End Role="Reservacion" EntitySet="Reservacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reservaci__IdPas__24927208" Association="Self.FK__Reservaci__IdPas__24927208">
+      <End Role="Pasajero" EntitySet="Pasajero" />
+      <End Role="Reservacion" EntitySet="Reservacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Usuario__IdTipo__38996AB5" Association="Self.FK__Usuario__IdTipo__38996AB5">
+      <End Role="Tipo" EntitySet="Tipo" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
